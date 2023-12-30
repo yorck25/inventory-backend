@@ -14,9 +14,9 @@ const Role = db.role;
 
 const dba = async () => {
     try {
-        await connect(`mongodb+srv://${USER}:${PASS}@${DB}`);
-        console.log("connected to mongodb");
+        await db.mongoose.connect(`mongodb+srv://${USER}:${PASS}@${DB}`);
         initial();
+        console.log("connected to mongodb");
     }
     catch (err) {
         console.log(err);
@@ -33,31 +33,35 @@ app.get("/", (req, res) => {
     res.send("inventory backend is running!");
 });
 
-app.get("/", (req, res) => { 
+app.get("/items", (req, res) => { 
     Items.find()
     .then(items => res.json(items))
     .catch(err => res.json(err))
 });
 
 function initial() {
-    Role.estimatedDocumentCount((err, count) => {
-        if (!err && count === 0) {
-            new Role({
-                name: "user"
-            }).save(err => {
-                if (err) {
-                    console.log("error", err);
-                }
-                console.log("added 'user' to roles collection");
-            });
-            new Role({
-                name: "admin"
-            }).save(err => {
-                if (err) {
-                    console.log("error", err);
-                }
-                console.log("added 'admin' to roles collection");
-            });
-        }
-    });
+    try{
+        Role.estimatedDocumentCount((err, count) => {
+            if (!err && count === 0) {
+                new Role({
+                    name: "user"
+                }).save(err => {
+                    if (err) {
+                        console.log("error", err);
+                    }
+                    console.log("added 'user' to roles collection");
+                });
+                new Role({
+                    name: "admin"
+                }).save(err => {
+                    if (err) {
+                        console.log("error", err);
+                    }
+                    console.log("added 'admin' to roles collection");
+                });
+            }
+        });
+    }catch(err){
+        console.log(err);
+    }
 }
