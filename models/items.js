@@ -6,6 +6,10 @@ const inventorySchema = new Schema({
         type: String,
         required: true,
     },
+    size: {
+        type: String,
+        required: true,
+    },
     buy: {
         type: Number,
         required: true,
@@ -32,5 +36,5 @@ const inventorySchema = new Schema({
     },
 });
 
-const Items = mongoose.model('Items', inventorySchema);
+const Items = mongoose.model('items', inventorySchema);
 module.exports = Items;
