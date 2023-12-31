@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-
 class JWTDecoder {
   constructor() {}
 

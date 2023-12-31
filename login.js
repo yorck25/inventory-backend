@@ -1,11 +1,7 @@
 const User = require('./models/user.models');
 const jwt = require('jsonwebtoken');
-const JWTDecoder = require('./api/decodeToken');
 
 const login = async (req, res) => {
-
-    const jwtDecoder = new JWTDecoder();
-
     try {
         const { username, password } = req.headers;
 
