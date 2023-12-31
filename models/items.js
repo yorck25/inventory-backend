@@ -6,10 +6,6 @@ const inventorySchema = new Schema({
         type: String,
         required: true,
     },
-    size: {
-        type: String,
-        required: true,
-    },
     buy: {
         type: Number,
         required: true,
@@ -18,16 +14,12 @@ const inventorySchema = new Schema({
         type: Number,
         required: true,
     },
-    platform: {
-        type: String,
-        required: true,
-    },
     buyindate: {
-        type: Date,
+        type: String,
         required: false,
     },
     selldate: {
-        type: Date,
+        type: String,
         required: false,
     },
     memo: {
