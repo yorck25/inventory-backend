@@ -42,6 +42,7 @@ const dbConfig = require('./config/db.config');
 db.mongoose
     .connect(`mongodb+srv://${dbConfig.USER}:${dbConfig.PASS}@${dbConfig.DB}`, {
 
+<<<<<<< HEAD
     })
     .then(() => {
         console.log("Connected");
@@ -60,3 +61,58 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);
 });
 
+=======
+const dba = async () => {
+    try {
+        await db.mongoose.connect(`mongodb+srv://${USER}:${PASS}@${DB}`);
+        initial();
+        console.log("connected to mongodb");
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+dba();
+
+app.listen(port, () => {
+    console.log("server is running on port " + port);
+});
+
+app.get("/", (req, res) => {
+    res.send("inventory backend is running!");
+});
+
+app.get("/items", (req, res) => { 
+    Items.find()
+    .then(items => res.json(items))
+    .catch(err => res.json(err))
+});
+
+function initial() {
+    try{
+        Role.estimatedDocumentCount((err, count) => {
+            if (!err && count === 0) {
+                new Role({
+                    name: "user"
+                }).save(err => {
+                    if (err) {
+                        console.log("error", err);
+                    }
+                    console.log("added 'user' to roles collection");
+                });
+                new Role({
+                    name: "admin"
+                }).save(err => {
+                    if (err) {
+                        console.log("error", err);
+                    }
+                    console.log("added 'admin' to roles collection");
+                });
+            }
+        });
+    }catch(err){
+        console.log(err);
+    }
+}
+>>>>>>> 332ef1584c0a4ee25806f159f1ba438c0688a661
