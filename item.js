@@ -30,4 +30,4 @@ const itemmanagement = async (req, res) => {
     }
 };
 
-exports.itemmanagement = itemmanagement;
+exports.item = item;

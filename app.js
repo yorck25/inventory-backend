@@ -3,7 +3,7 @@ const cors = require("cors");
 const { connect } = require("mongoose");
 const { USER, PASS, DB } = require("./config/db.config");
 const { login } = require("./login"); // Import your login function
-const { itemmanagement } = require("./itemmanagement");
+const { item } = require("./item");
 const app = express();
 const dotenv = require('dotenv');
 
@@ -45,4 +45,4 @@ app.get("/", (req, res) => {
 app.get("/login", login); // Assuming the login functionality is implemented in the 'login' function
 
 // Other routes and middleware can be defined similarly
-app.post("/safeitem", itemmanagement);
+app.post("/item", item);
