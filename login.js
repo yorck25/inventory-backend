@@ -1,8 +1,11 @@
 const User = require('./models/user.models');
-const jwtDecode = require("jwt-decode");
 const jwt = require('jsonwebtoken');
+const JWTDecoder = require('./api/decodeToken');
 
 const login = async (req, res) => {
+
+    const jwtDecoder = new JWTDecoder();
+
     try {
         const { username, password } = req.headers;
 
@@ -36,7 +39,7 @@ createJwtToken = (userId) => {
     };
 
     return jwt.sign(payload, process.env.JWT_TOKEN_SECRET_KEY, {
-        expiresIn: '24h',
+        expiresIn: "24h",
     });
 }
 
