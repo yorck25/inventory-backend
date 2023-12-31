@@ -4,6 +4,9 @@ const { connect } = require("mongoose");
 const { USER, PASS, DB } = require("./config/db.config");
 const { login } = require("./login"); // Import your login function
 const app = express();
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const port = 8080;
 
