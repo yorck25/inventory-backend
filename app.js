@@ -1,62 +1,37 @@
-const express = require('express');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-var cookieParser = require('cookie-parser')
-require('dotenv').config();
-const cors = require('cors')
-var corsOptions = {
-    origin: "http://localhost:8081"
-};
-
-var livereload = require("livereload");
-var connectLiveReload = require("connect-livereload");
-
-const liveReloadServer = livereload.createServer();
-liveReloadServer.server.once("connection", () => {
-    setTimeout(() => {
-        liveReloadServer.refresh("/");
-    }, 100);
-});
-
+const express = require("express");
+const cors = require("cors");
+const { connect } = require("mongoose");
+const { USER, PASS, DB } = require("./config/db.config");
+const { login } = require("./login"); // Import your login function
 const app = express();
 
-app.use(connectLiveReload());
+const port = 8080;
 
-app.set('view engine', 'ejs');
-
-app.use(cookieParser())
-
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(express.json());
-app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
-app.use((req, res, next) => {
-    res.locals.path = req.path;
-    next();
+
+// Connect to MongoDB
+const db = async () => {
+    try {
+        await connect(`mongodb+srv://${USER}:${PASS}@${DB}`);
+        console.log("connected to mongodb");
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+db();
+
+app.listen(port, () => {
+    console.log("server is running on port " + port);
 });
 
-const db = require('./models');
-const Role = db.role;
-const dbConfig = require('./config/db.config');
-db.mongoose
-    .connect(`mongodb+srv://${dbConfig.USER}:${dbConfig.PASS}@${dbConfig.DB}`, {
-
-    })
-    .then(() => {
-        console.log("Connected");
-    })
-    .catch(err => {
-        console.error("Connection error", err);
-        process.exit();
-    });
-
-require('./routes/auth.routes')(app);
-require('./routes/user.routes')(app);
-
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}.`);
+// Routes
+app.get("/", (req, res) => {
+    res.send("inventory backend is running!");
 });
 
+// Route for user login
+app.get("/login", login); // Assuming the login functionality is implemented in the 'login' function
+
+// Other routes and middleware can be defined similarly
