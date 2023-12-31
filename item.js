@@ -1,10 +1,13 @@
 const Items = require('./models/items'); // Import your User model
 
 
-const itemmanagement = async (req, res) => {
+const item = async (req, res) => {
 
     try {
-        const coll = db.collection("items");
+
+        const "app.js "
+
+        const item = Items.findOne;
         // insert code goes here
         const docs = [
             { 
@@ -16,11 +19,11 @@ const itemmanagement = async (req, res) => {
                 memo: req.body.memo
             }
         ];
-        const result = await coll.insertMany(docs);
+        const result = await item.insert(docs);
         // display the results of your operation
     }
-    catch (err) {err.message = err.message};
+    catch (err) {err.message};
 }
 
 
-exports.itemmanagement = itemmanagement;
+exports.item = item;
