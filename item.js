@@ -1,6 +1,16 @@
 const Items = require('./models/items');
+const JWTDecoder = require('./api/decodeToken');
 
-const items = async (req, res) => {
+const itemmanagement = async (req, res) => {
+
+    const jwtDecoder = new JWTDecoder();
+
+    const token = req.headers.token;
+
+    if (!token || !jwtDecoder.decodeJWT(token) == null) {
+        return res.status(400).json({ error: "Token not provided in headers" });
+    }
+    
     const newItem = {
         item: req.body.item,
         buy: parseInt(req.body.buy),
@@ -9,7 +19,6 @@ const items = async (req, res) => {
         selldate: req.body.selldate,
         memo: req.body.memo
     };
-    
 
     try {
         const createdItem = await Items.create(newItem);
@@ -21,4 +30,4 @@ const items = async (req, res) => {
     }
 };
 
-exports.items = items;
+exports.itemmanagement = itemmanagement;
