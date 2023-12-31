@@ -1,6 +1,6 @@
 const Items = require('./models/items');
 
-const itemmanagement = async (req, res) => {
+const items = async (req, res) => {
     const newItem = {
         item: req.body.item,
         buy: parseInt(req.body.buy),
@@ -10,6 +10,7 @@ const itemmanagement = async (req, res) => {
         memo: req.body.memo
     };
     
+
     try {
         const createdItem = await Items.create(newItem);
         console.log("1 document inserted:", createdItem);
@@ -20,4 +21,4 @@ const itemmanagement = async (req, res) => {
     }
 };
 
-exports.item = item;
+exports.items = items;
