@@ -1,7 +1,7 @@
 const Items = require('./models/items');
 const JWTDecoder = require('./api/decodeToken');
 
-const itemmanagement = async (req, res) => {
+const items = async (req, res) => {
 
     const jwtDecoder = new JWTDecoder();
 
@@ -30,7 +30,6 @@ const itemmanagement = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
 const getAllItems = async (req, res) => {
     const items = await Items.find({});
     items.forEach(function(item){
@@ -40,8 +39,5 @@ const getAllItems = async (req, res) => {
     res.send(items);
 }
 
-exports.itemmanagement = itemmanagement;
+exports.items = items;
 exports.getAllItems = getAllItems;
-=======
-exports.itemmanagement = itemmanagement;
->>>>>>> ddbabe256735abe85721f1c037302f517ac9d4a0
