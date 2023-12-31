@@ -30,6 +30,7 @@ const itemmanagement = async (req, res) => {
     }
 };
 
+<<<<<<< HEAD
 const getAllItems = async (req, res) => {
     const items = await Items.find({});
     items.forEach(function(item){
@@ -41,3 +42,6 @@ const getAllItems = async (req, res) => {
 
 exports.itemmanagement = itemmanagement;
 exports.getAllItems = getAllItems;
+=======
+exports.itemmanagement = itemmanagement;
+>>>>>>> ddbabe256735abe85721f1c037302f517ac9d4a0
