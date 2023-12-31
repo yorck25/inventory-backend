@@ -10,7 +10,6 @@ module.exports = function (app) {
         next();
     });
 
-    console.log("working_5")
     app.post(
         "/api/auth/signup",
         [
