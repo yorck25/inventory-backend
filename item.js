@@ -10,6 +10,8 @@ const items = async (req, res) => {
     if (!token || !jwtDecoder.decodeJWT(token) == null) {
         return res.status(400).json({ error: "Token not provided in headers" });
     }
+
+    const userId = jwtDecoder.decodeJWT(token).userId
     
     const newItem = {
         item: req.body.item,
@@ -17,7 +19,8 @@ const items = async (req, res) => {
         sell: parseInt(req.body.sell),
         buyindate: req.body.buyindate,
         selldate: req.body.selldate,
-        memo: req.body.memo
+        memo: req.body.memo,
+        userId: userID
     };
 
     try {

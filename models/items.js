@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./user.models');
 const Schema = mongoose.Schema;
 
 const inventorySchema = new Schema({
@@ -25,6 +26,10 @@ const inventorySchema = new Schema({
     memo: {
         type: String,
         required: false,
+    },
+    userId: {
+        type: String,
+        required: true,
     },
 });
 
