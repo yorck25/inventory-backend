@@ -1,7 +1,7 @@
 const Items = require('./models/items');
 const JWTDecoder = require('./api/decodeToken');
 
-const itemmanagement = async (req, res) => {
+const items = async (req, res) => {
 
     const jwtDecoder = new JWTDecoder();
 
@@ -30,4 +30,4 @@ const itemmanagement = async (req, res) => {
     }
 };
 
-exports.itemmanagement = itemmanagement;
+exports.items = items;
