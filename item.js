@@ -10,6 +10,8 @@ const items = async (req, res) => {
     if (!token || !jwtDecoder.decodeJWT(token) == null) {
         return res.status(400).json({ error: "Token not provided in headers" });
     }
+
+    const userId = jwtDecoder.decodeJWT(token).userId
     
     const newItem = {
         item: req.body.item,
@@ -17,7 +19,8 @@ const items = async (req, res) => {
         sell: parseInt(req.body.sell),
         buyindate: req.body.buyindate,
         selldate: req.body.selldate,
-        memo: req.body.memo
+        memo: req.body.memo,
+        userId: userID
     };
 
     try {
@@ -30,4 +33,18 @@ const items = async (req, res) => {
     }
 };
 
+<<<<<<< HEAD
 exports.items = items;
+=======
+const getAllItems = async (req, res) => {
+    const items = await Items.find({});
+    items.forEach(function(item){
+        console.log(item._id);
+    });
+
+    res.send(items);
+}
+
+exports.items = items;
+exports.getAllItems = getAllItems;
+>>>>>>> 3a319e52702dbff6127aea67e7606f625e2ec64c
