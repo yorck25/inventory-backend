@@ -20,7 +20,7 @@ const items = async (req, res) => {
         buyindate: req.body.buyindate,
         selldate: req.body.selldate,
         memo: req.body.memo,
-        userId: userID
+        userId: userId
     };
 
     try {
@@ -34,7 +34,19 @@ const items = async (req, res) => {
 };
 
 const getAllItems = async (req, res) => {
-    const items = await Items.find({});
+    const jwtDecoder = new JWTDecoder();
+    
+    const token = req.headers.token;
+
+    if (!token || !jwtDecoder.decodeJWT(token) == null) {
+        return res.status(400).json({ error: "Token not provided in headers" });
+    }
+
+    const userId = jwtDecoder.decodeJWT(token).userId
+
+    //db.collection('inventory').find({ status: 'D' });
+
+    const items = await Items.find({userId: userId});
     items.forEach(function(item){
         console.log(item._id);
     });
