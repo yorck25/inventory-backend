@@ -33,9 +33,8 @@ const items = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
 exports.items = items;
-=======
+
 const getAllItems = async (req, res) => {
     const jwtDecoder = new JWTDecoder();
     
@@ -57,6 +56,4 @@ const getAllItems = async (req, res) => {
     res.send(items);
 }
 
-exports.items = items;
 exports.getAllItems = getAllItems;
->>>>>>> 3a319e52702dbff6127aea67e7606f625e2ec64c
