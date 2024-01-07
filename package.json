@@ -17,6 +17,7 @@
     "nodemon": "^3.0.2"
   },
   "scripts": {
-    "dev": "nodemon start app.js"
+    "dev": "NODE_ENV=dev node app.js",
+    "prod": "NODE_ENV=prod node app.js"
   }
 }
