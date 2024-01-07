@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
+const User = require('./user.models');
 const Schema = mongoose.Schema;
 
 const inventorySchema = new Schema({
     item: {
-        type: String,
-        required: true,
-    },
-    size: {
         type: String,
         required: true,
     },
@@ -18,21 +15,21 @@ const inventorySchema = new Schema({
         type: Number,
         required: true,
     },
-    platform: {
-        type: String,
-        required: true,
-    },
     buyindate: {
-        type: Date,
+        type: String,
         required: false,
     },
     selldate: {
-        type: Date,
+        type: String,
         required: false,
     },
     memo: {
         type: String,
         required: false,
+    },
+    userId: {
+        type: String,
+        required: true,
     },
 });
 
