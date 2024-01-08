@@ -28,8 +28,8 @@ const router = express.Router();
 // Connect to MongoDB
 const db = async () => {
   try {
-        await connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_CONNECTION}`);
-        console.log("connected to mongodb");
+      await connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_CONNECTION}`);
+      console.log("connected to mongodb");
     } catch (err) {
         console.log(err);
     }

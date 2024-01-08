@@ -2,6 +2,10 @@
 
 # Information
 
+*environment variables
+    -.env.dev
+    -.env.prod
+
 --- Dev ---
 * Port = 8080
 * Base-url = /dev-inventory
