@@ -2,8 +2,15 @@
 
 # Information
 
-* Dev-Port = 8080
-* Dev-Baseurl = http://localhost:Dev-Port/
+* #Dev
+* Port = 8080
+* Base-url = /dev-inventory
+* Dev-Url = http://localhost:Port/base-url
+
+* #Prod
+* Port = 3030
+* Base-url =/prod-inventory
+* Prod-Url = http://localhost:Prod/
 
 # all item funtions
 
