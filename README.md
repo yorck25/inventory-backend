@@ -10,7 +10,7 @@
 --- Prod ---
 * Port = 3030
 * Base-url =/prod-inventory
-* Prod-Url = http://localhost:Prod/
+* Prod-Url = http://localhost:Port/base-url
 
 # all item funtions
 
@@ -25,4 +25,4 @@
     Body = {"item": string, "buy": number ,"sell": number, "buyindate": string ,"selldate": string, "memo": string }
     Description = Creates a new Item in the collection
 
-# all item funtions
+# all user funtions
