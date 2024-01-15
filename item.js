@@ -89,3 +89,32 @@ const updateSingleItem = async (req, res) => {
 };
 
 exports.updateSingleItem = updateSingleItem;
+
+const deleteSingleItem = async (req, res) => {
+    const jwtDecoder = new JWTDecoder();
+    const token = req.headers.token;
+
+    if (!token || !jwtDecoder.decodeJWT(token)) {
+        return res.status(400).json({ error: "Token not provided in headers" });
+    }
+
+    const userId = jwtDecoder.decodeJWT(token).userId;
+
+    try {
+        const deletedItem = await Items.deleteOne({
+            _id: new mongoose.Types.ObjectId(req.headers._id)
+        });
+
+        if (!deletedItem) {
+            return res.status(404).json({ error: "Document not found for the given _id" });
+        }
+
+        console.log("1 document deleted:", deletedItem);
+        return res.status(200).json("success");
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Failed to delete item" });
+    }
+}
+
+exports.deleteSingleItem = deleteSingleItem;

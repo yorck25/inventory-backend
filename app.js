@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { connect } = require("mongoose");
 const { login } = require("./login");
-const { items, getAllItems, updateSingleItem } = require("./item");
+const { items, getAllItems, updateSingleItem, deleteSingleItem } = require("./item");
 const app = express();
 const dotenv = require('dotenv');
 
@@ -46,6 +46,7 @@ router.get("/login", login);
 router.post("/item", items);
 router.put("/update-single-item", updateSingleItem);
 router.get("/get-all-items", getAllItems);
+router.delete("/delete-single-item", deleteSingleItem);
 
 app.use('/dev-inventory', router);
 
