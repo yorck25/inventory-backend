@@ -1,50 +1,54 @@
 const express = require("express");
 const cors = require("cors");
 const { connect } = require("mongoose");
-const { USER, PASS, DB } = require("./config/db.config");
-const { login } = require("./login"); // Import your login function
-const { items, getAllItems } = require("./item"); // Import your login function
-const { itemmanagement } = require("./item"); // Import your login function
+const { login } = require("./login");
+const { items, getAllItems, updateSingleItem } = require("./item");
 const app = express();
 const dotenv = require('dotenv');
 
-dotenv.config();
-
-class Dbconfig{
-    accesDb(){
-        db();
-    }
+// Load environment-specific variables
+if (process.env.NODE_ENV === 'prod') {
+  dotenv.config({ path: '.env.prod' });
+} else if (process.env.NODE_ENV === 'dev') {
+  dotenv.config({ path: '.env.dev' });
 }
+11 ^
+  class Dbconfig {
+    accessDb() {
+      db();
+    }
+  }
 
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 app.use(cors());
 app.use(express.json());
+const router = express.Router();
 
 // Connect to MongoDB
 const db = async () => {
-    try {
-        await connect(`mongodb+srv://${USER}:${PASS}@${DB}`);
-        console.log("connected to mongodb");
-    } catch (err) {
-        console.log(err);
-    }
+  try {
+    await connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_CONNECTION}`);
+    console.log("connected to mongodb");
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 db();
 
+router.get("/", (req, res) => {
+  res.send("inventory backend is running!");
+});
+
+router.get("/login", login);
+
+router.post("/item", items);
+router.put("/update-single-item", updateSingleItem);
+router.get("/get-all-items", getAllItems);
+
+app.use('/dev-inventory', router);
+
 app.listen(port, () => {
-    console.log("server is running on port " + port);
+  console.log("server is running on port " + port);
 });
-
-// Routes
-app.get("/", (req, res) => {
-    res.send("inventory backend is running!");
-});
-
-// Route for user login
-app.get("/login", login); // Assuming the login functionality is implemented in the 'login' function
-
-// Other routes and middleware can be defined similarly
-app.post("/item", items);
-app.get("/getAllItems", getAllItems);
