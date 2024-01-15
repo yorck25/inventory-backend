@@ -1,1 +1,36 @@
 # inventory-backend
+
+# Information
+
+*environment variables
+    -.env.dev
+    -.env.prod
+
+--- Dev ---
+* Port = 8080
+* Base-url = /dev-inventory
+* Dev-Url = http://localhost:Port/base-url
+
+--- Prod ---
+* Port = 3030
+* Base-url =/prod-inventory
+* Prod-Url = http://localhost:Port/base-url
+
+# all item funtions
+
+* /getAllItems
+    HTTPMethod = Get
+    Header atributes = token: string
+    Description = Get all items for the current logged in user 
+
+* /item
+    HTTPMethod = Post
+    Header atributes = token: string
+    Body = {"item": string, "buy": number ,"sell": number, "buyindate": string ,"selldate": string, "memo": string }
+    Description = Creates a new Item in the collection
+
+# all user funtions
+
+node_modules
+.env.prod
+.env.dev
