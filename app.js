@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { connect } = require("mongoose");
-const { login } = require("./login");
+const { login, createAccount } = require("./login");
 const { items, getAllItems, updateSingleItem, deleteSingleItem } = require("./item");
 const app = express();
 const dotenv = require('dotenv');
@@ -42,6 +42,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/login", login);
+router.post("/registration", createAccount);
 
 router.post("/item", items);
 router.put("/update-single-item", updateSingleItem);

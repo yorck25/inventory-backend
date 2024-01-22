@@ -21,14 +21,14 @@ const login = async (req, res) => {
             return res.status(500).json({ error: "Internal server error" });
         }
 
-        return res.status(200).send(token);
+        return res.status(200).json({ token: token });
     } catch (err) {
         console.error(err);
         return res.status(500).json({ error: "Internal server error" });
     }
 };
 
-createJwtToken = (userId) => {
+const createJwtToken = (userId) => {
     const payload = {
         userId,
         iat: Date.now(),
@@ -40,3 +40,32 @@ createJwtToken = (userId) => {
 }
 
 exports.login = login;
+
+const createAccount = async (req, res) => {
+    try {
+        const createdItem = await User.create({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+        });
+
+        console.log("1 document inserted:", createdItem);
+
+        if (!res.status(200)) {
+            return res.status(500).json({message: `creat user failed: ${res.status}`});
+        }
+        const token = createJwtToken(createdItem._id);
+
+        if (!token) {
+            return res.status(500).json({ error: "Internal server error" });
+        }
+
+        return res.status(200).json({ token: token });
+
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: "Failed to insert item" });
+    }
+}
+
+exports.createAccount = createAccount;
